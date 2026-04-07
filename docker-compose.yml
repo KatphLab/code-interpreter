@@ -12,14 +12,34 @@ services:
     env_file:
       - .env
     ports:
-      - '5101:8000'
+      - '${PORT:-8000}:8000'
     environment:
-      - PYTHONUNBUFFERED=1
-      - MAX_SESSIONS=50
-      - EXECUTION_TIMEOUT=300
+      # Python settings
+      - PYTHONUNBUFFERED=${PYTHONUNBUFFERED:-1}
+      - PYTHONDONTWRITEBYTECODE=${PYTHONDONTWRITEBYTECODE:-1}
+
+      # Core application settings
+      - CODE_INTERPRETER_API_KEY=${CODE_INTERPRETER_API_KEY:-}
+      - MAX_SESSIONS=${MAX_SESSIONS:-50}
+      - EXECUTION_TIMEOUT=${EXECUTION_TIMEOUT:-300}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - LOG_REQUESTS=${LOG_REQUESTS:-false}
+
+      # Subprocess resource limits
       - SUBPROCESS_MAX_MEMORY_MB=${SUBPROCESS_MAX_MEMORY_MB:-0}
       - SUBPROCESS_MAX_CPU_SECONDS=${SUBPROCESS_MAX_CPU_SECONDS:-0}
       - BASH_STRICT_MODE=${BASH_STRICT_MODE:-1}
+
+      # Directory paths (override defaults if needed)
+      - APP_BASE_DIR=${APP_BASE_DIR:-/app}
+      - NOTEBOOKS_DIR=${NOTEBOOKS_DIR:-/app/notebooks}
+      - UPLOADS_DIR=${UPLOADS_DIR:-/app/uploads}
+
+      # CORS configuration
+      - CORS_ALLOW_ORIGINS=${CORS_ALLOW_ORIGINS:-*}
+
+      # Port configuration (internal container port)
+      - PORT=8000
     volumes:
       - ./notebooks:/app/notebooks
       - ./uploads:/app/uploads
@@ -43,3 +63,11 @@ services:
       timeout: 10s
       retries: 3
       start_period: 40s
+    networks:
+      - default
+
+# Optional external network support for MCP client integration
+networks:
+  default:
+    name: ${MCP_NETWORK_NAME:-mcp-network}
+    external: ${MCP_NETWORK_EXTERNAL:-false}
