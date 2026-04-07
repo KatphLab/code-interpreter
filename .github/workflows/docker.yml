@@ -1,11 +1,18 @@
 name: Build and Publish Image
 
 on:
-  push:
-    branches: [main]
-    tags:
-      - 'v*'
   workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Image tag to build'
+        required: true
+        default: 'latest'
+        type: string
+      push_latest:
+        description: 'Also push as latest tag'
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: read
@@ -26,9 +33,8 @@ jobs:
         with:
           images: ghcr.io/katphlab/code-interpreter
           tags: |
-            type=raw,value=latest,enable={{is_default_branch}}
-            type=sha,format=short
-            type=ref,event=tag
+            type=raw,value=${{ github.event.inputs.tag }}
+            type=raw,value=latest,enable=${{ github.event.inputs.push_latest }}
 
       - name: Build image for health check
         uses: docker/build-push-action@v6

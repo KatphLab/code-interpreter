@@ -1,15 +1,13 @@
 name: Build and Publish CI Image
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'Dockerfile.ci'
-      - 'pyproject.toml'
-      - 'uv.lock'
-      - 'uv.lock.*'
-      - 'ci/**'
   workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Image tag to build'
+        required: true
+        default: 'latest'
+        type: string
 
 permissions:
   contents: read
@@ -37,4 +35,4 @@ jobs:
           context: .
           file: Dockerfile.ci
           push: true
-          tags: ghcr.io/katphlab/code-interpreter-ci:latest
+          tags: ghcr.io/katphlab/code-interpreter-ci:${{ github.event.inputs.tag }}
