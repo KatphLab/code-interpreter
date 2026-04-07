@@ -4,7 +4,7 @@ UV ?= uv
 PACKAGE := mcp_code_interpreter
 APP_IMPORT := $(PACKAGE).server:app
 DOCKER ?= docker
-DOCKER_IMAGE ?= ghcr.io/thehapyone/code-interpreter
+DOCKER_IMAGE ?= ghcr.io/katphlab/code-interpreter
 DOCKER_TAG ?= latest
 COMPOSE_FILE ?= docker-compose.yml
 

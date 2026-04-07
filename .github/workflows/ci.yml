@@ -40,7 +40,7 @@ jobs:
           MAX_ATTEMPTS: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/main') && '30' || '1' }}
         run: |
           set -euo pipefail
-          image="ghcr.io/thehapyone/code-interpreter-ci:latest"
+          image="ghcr.io/katphlab/code-interpreter-ci:latest"
           for i in $(seq 1 "$MAX_ATTEMPTS"); do
             if docker manifest inspect "$image" >/dev/null 2>&1; then
               echo "CI image is available."
@@ -55,7 +55,7 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/thehapyone/code-interpreter-ci:latest
+      image: ghcr.io/katphlab/code-interpreter-ci:latest
     needs: wait-for-ci-image
     if: needs.wait-for-ci-image.result == 'success' || needs.wait-for-ci-image.result == 'skipped'
     steps:
@@ -68,7 +68,7 @@ jobs:
   openapi-check:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/thehapyone/code-interpreter-ci:latest
+      image: ghcr.io/katphlab/code-interpreter-ci:latest
     needs: wait-for-ci-image
     if: needs.wait-for-ci-image.result == 'success' || needs.wait-for-ci-image.result == 'skipped'
     steps:
@@ -81,7 +81,7 @@ jobs:
   typecheck:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/thehapyone/code-interpreter-ci:latest
+      image: ghcr.io/katphlab/code-interpreter-ci:latest
     needs: wait-for-ci-image
     if: needs.wait-for-ci-image.result == 'success' || needs.wait-for-ci-image.result == 'skipped'
     steps:
@@ -94,7 +94,7 @@ jobs:
   unit:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/thehapyone/code-interpreter-ci:latest
+      image: ghcr.io/katphlab/code-interpreter-ci:latest
     needs: wait-for-ci-image
     if: needs.wait-for-ci-image.result == 'success' || needs.wait-for-ci-image.result == 'skipped'
     env:
@@ -119,13 +119,13 @@ jobs:
   e2e:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/thehapyone/code-interpreter-ci:latest
+      image: ghcr.io/katphlab/code-interpreter-ci:latest
     needs: wait-for-ci-image
     if: needs.wait-for-ci-image.result == 'success' || needs.wait-for-ci-image.result == 'skipped'
     env:
       PYTHONPATH: ${{ github.workspace }}
       API_KEY: dev-demo-key
-      PORT: "8000"
+      PORT: '8000'
     steps:
       - uses: actions/checkout@v4
       - name: Sync dependencies (if needed)

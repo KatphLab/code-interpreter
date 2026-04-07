@@ -1,7 +1,7 @@
 ---
 name: Bug Report
 about: Report a reproducible bug or unexpected behaviour
-title: "fix: <short description>"
+title: 'fix: <short description>'
 labels: bug
 assignees: ''
 ---
@@ -27,7 +27,7 @@ What actually happened. Include any error messages or stack traces.
 ## Environment
 
 - **Deployment:** Docker / docker-compose / local uv
-- **Image tag / version:** e.g. `thehapyone/code-interpreter:latest` or commit SHA
+- **Image tag / version:** e.g. `katphlab/code-interpreter:latest` or commit SHA
 - **OS:** e.g. Ubuntu 22.04
 - **Python version (if local):** e.g. 3.14.0
 

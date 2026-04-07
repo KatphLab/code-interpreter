@@ -4,11 +4,11 @@ on:
   push:
     branches: [main]
     paths:
-      - "Dockerfile.ci"
-      - "pyproject.toml"
-      - "uv.lock"
-      - "uv.lock.*"
-      - "ci/**"
+      - 'Dockerfile.ci'
+      - 'pyproject.toml'
+      - 'uv.lock'
+      - 'uv.lock.*'
+      - 'ci/**'
   workflow_dispatch:
 
 permissions:
@@ -37,4 +37,4 @@ jobs:
           context: .
           file: Dockerfile.ci
           push: true
-          tags: ghcr.io/thehapyone/code-interpreter-ci:latest
+          tags: ghcr.io/katphlab/code-interpreter-ci:latest

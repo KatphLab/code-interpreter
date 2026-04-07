@@ -60,10 +60,10 @@ test = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/thehapyone/code-interpreter"
-Documentation = "https://github.com/thehapyone/code-interpreter#readme"
-Repository = "https://github.com/thehapyone/code-interpreter"
-Issues = "https://github.com/thehapyone/code-interpreter/issues"
+Homepage = "https://github.com/katphlab/code-interpreter"
+Documentation = "https://github.com/katphlab/code-interpreter#readme"
+Repository = "https://github.com/katphlab/code-interpreter"
+Issues = "https://github.com/katphlab/code-interpreter/issues"
 
 [project.scripts]
 mcp-server = "mcp_code_interpreter.server:main"
