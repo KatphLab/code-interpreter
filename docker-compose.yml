@@ -11,8 +11,6 @@ services:
     container_name: mcp-code-interpreter
     env_file:
       - .env
-    ports:
-      - '${PORT:-8000}:8000'
     environment:
       # Python settings
       - PYTHONUNBUFFERED=${PYTHONUNBUFFERED:-1}
